@@ -1,0 +1,32 @@
+extends ../common/common
+block admin 
+ .mws-panel.grid_8
+  .mws-panel-header
+    span 商家食品添加
+  .mws-panel-body.no-padding
+    form.mws-form(action='/admin/goodsdoupdate' method="POST" enctype="multipart/form-data")
+      .mws-form-inline
+        .mws-form-row
+          label.mws-form-label 食品名称
+          .mws-form-item
+            input.large(type='text' name="foodname"  value=`${data.foodname}`)
+        .mws-form-row
+          label.mws-form-label 食品旧图片 
+          .mws-form-item
+            img(src=`https://wmht.oss-cn-chengdu.aliyuncs.com/${data.foodpic}` width='80px')
+        .mws-form-row
+          label.mws-form-label 食品新图片 
+          .mws-form-item
+            input.large(type='file' name="foodpic" )
+        .mws-form-row
+          label.mws-form-label 宣传语 
+          .mws-form-item
+            input.large(type='text' name="descr" value=`${data.descr}`)
+        .mws-form-row
+          label.mws-form-label 食品价格 
+          .mws-form-item
+            input.large(type='text' name="price" value=`${data.price}`)
+      .mws-button-row
+        input.btn.btn-danger(type='submit' value='更新')
+        input.btn(type='reset' value='重置')
+        input(type="hidden" name = 'id' value = `${data.id}`)

@@ -1,0 +1,97 @@
+extends ../common/common
+block admin 
+ .mws-panel.grid_8
+  .mws-panel-header
+    span
+      i.icon-table
+      |  商家列表
+  .mws-panel-body.no-padding
+    #DataTables_Table_1_wrapper.dataTables_wrapper(role='grid')
+      #DataTables_Table_1_length.dataTables_length
+        form(action="/admin/shoplist" method="get")
+          label
+            | 每页展示 
+            select(size='1' name='DataTables_Table_1_length' aria-controls='DataTables_Table_1')
+              option(value='2' ) 2
+              option(value='3' selected='selected') 3
+              option(value='4' ) 4
+              option(value='5' ) 5
+            | 个数据
+      #DataTables_Table_1_filter.dataTables_filter
+        form(action="/admin/shopsearch" method="get")
+          label
+          | 商家搜索: 
+          input(type='text' name = 'keywords' aria-controls='DataTables_Table_1')
+          button.btn.btn-primary 搜索
+          a.btn.btn-info(href=`/admin/shoplist`) 刷新
+      table#DataTables_Table_1.mws-datatable-fn.mws-table.dataTable(aria-describedby='DataTables_Table_1_info')
+        thead
+          tr(role='row')
+            th.sorting_asc(role='columnheader' tabindex='0' aria-controls='DataTables_Table_1' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Rendering engine: activate to sort column descending' style='width: 258px;') 序号
+            th.sorting(role='columnheader' tabindex='0' aria-controls='DataTables_Table_1' rowspan='1' colspan='1' aria-label='Browser: activate to sort column ascending' style='width: 333px;') 商家名称
+            th.sorting(role='columnheader' tabindex='0' aria-controls='DataTables_Table_1' rowspan='1' colspan='1' aria-label='Browser: activate to sort column ascending' style='width: 333px;') 品牌logo
+            th.sorting(role='columnheader' tabindex='0' aria-controls='DataTables_Table_1' rowspan='1' colspan='1' aria-label='Browser: activate to sort column ascending' style='width: 333px;') 宣传语
+            th.sorting(role='columnheader' tabindex='0' aria-controls='DataTables_Table_1' rowspan='1' colspan='1' aria-label='Engine version: activate to sort column ascending' style='width: 225px;') 配送费
+            th.sorting(role='columnheader' tabindex='0' aria-controls='DataTables_Table_1' rowspan='1' colspan='1' aria-label='Browser: activate to sort column ascending' style='width: 333px;') 操作
+        tbody(role='alert' aria-live='polite' aria-relevant='all')
+        if(datas)
+          -for(let i=0;i<datas.length;i++)
+            tr.odd
+              td=datas[i].id
+              td=datas[i].shopname
+              td
+                  img(src=`https://wmht.oss-cn-chengdu.aliyuncs.com/${datas[i].logo}`, alt="" width="100px")
+              td=datas[i].content
+              td=datas[i].fee
+              td
+                  a.btn.btn-warning(href=`/admin/shopupdate?id=${datas[i].id}`) 修改 
+                  a.btn.btn-danger(href=`/admin/shopdel?id=${datas[i].id}`) 删除 
+
+      #DataTables_Table_1_paginate.dataTables_paginate.paging_full_numbers
+      button
+        span(id='prev') 上一页
+      span(id='pages')
+      button
+        span(id='next') 下一页
+      span(style="color:white") 总条数:#{count}
+      span(style="color:white") 当前页:#{pages}
+      script(type='text/javascript').
+
+        var count=#{count};
+
+        var page=#{page}; 
+
+        var pages=document.getElementById('pages');
+        var prev=document.getElementById('prev');
+        var next=document.getElementById('next');
+
+        function createPages() {
+            pages.innerHTML='';
+            for(var i=0;i<Math.ceil(count/3);i++){
+              let a =(page==i) ? 'btn-success' :'btn-danger'
+              pages.innerHTML+=`<button class="btn ${a}" json-page="${i}" style="background-color:((${page}==${i}) ? 'green' :'white')">${i+1}</button>`;
+            }
+          }
+        createPages()
+
+        $('.btn').on('click',function(){
+          let page=$(this).attr('json-page');
+          window.location.href='/admin/shoplist?page='+page;
+        })
+
+        prev.onclick=function(){
+          if(page>=1){
+            page--;
+            window.location.href='/admin/shoplist?page='+page;
+          }
+        }
+
+        next.onclick=function(){
+          if(page<Math.ceil(count/2)-1){
+            page++;
+            window.location.href='/admin/shoplist?page='+page;
+          }
+        }
+      script(
+        
+      )

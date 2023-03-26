@@ -1,0 +1,31 @@
+extends ../common/common
+block admin 
+ .mws-panel.grid_8
+  .mws-panel-header
+    span
+      i.icon-table
+      |  会员详细信息
+  .mws-panel-body.no-padding
+    #DataTables_Table_1_wrapper.dataTables_wrapper(role='grid')
+      table#DataTables_Table_1.mws-datatable-fn.mws-table.dataTable(aria-describedby='DataTables_Table_1_info')
+        thead
+          tr(role='row')
+            th.sorting_asc(role='columnheader' tabindex='0' aria-controls='DataTables_Table_1' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Rendering engine: activate to sort column descending' style='width: 258px;') 序号
+            th.sorting(role='columnheader' tabindex='0' aria-controls='DataTables_Table_1' rowspan='1' colspan='1' aria-label='Browser: activate to sort column ascending' style='width: 333px;') 真实姓名
+            th.sorting(role='columnheader' tabindex='0' aria-controls='DataTables_Table_1' rowspan='1' colspan='1' aria-label='Platform(s): activate to sort column ascending' style='width: 309px;') 图像
+            th.sorting(role='columnheader' tabindex='0' aria-controls='DataTables_Table_1' rowspan='1' colspan='1' aria-label='Engine version: activate to sort column ascending' style='width: 225px;') 电话
+            th.sorting(role='columnheader' tabindex='0' aria-controls='DataTables_Table_1' rowspan='1' colspan='1' aria-label='Engine version: activate to sort column ascending' style='width: 225px;') email
+        tbody(role='alert' aria-live='polite' aria-relevant='all')
+        if data.length
+          a.btn.btn-info(href=`/admin/homeuserlist`) 返回
+          - for(let v of data)
+            tr.odd
+              td.sorting_1 #{v.id}
+              td.Firefox #{v.realname}
+              td.Win 
+                img(src=`${v.pic}` width='80px')
+              td.A #{v.phone}
+              td.A #{v.email}
+        else
+          button.btn.btn-danger 当前会员没有详细信息
+          a.btn.btn-info(href=`/admin/homeuserlist`) 返回

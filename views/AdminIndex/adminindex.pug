@@ -1,0 +1,49 @@
+extends ../common/common
+block admin 
+  body
+    .box#main(style='width: 800px;height: 600px;border: 1px solid #999;margin: 40px auto 0;')
+    input(type='hidden' id='dataArr' value=`${data}`)
+    script.
+      let arr = document.getElementById('dataArr').value
+      arr = arr.split(',') 
+      const myEcharts = echarts.init(document.getElementById('main'))
+          let option = {
+            title: {
+              text: '外卖后台数据',
+              left: 'center'
+            },
+            tooltip: {
+              trigger: 'item'
+            },
+            legend: {
+              orient: 'vertical',
+              left: 'right'
+            },
+            series: [
+              {
+                data: [
+                  { value: arr[0], name: '管理员' },
+                  { value: arr[1], name: '食品' },
+                  { value: arr[2], name: '商家' },
+                  { value: arr[3], name: '用户' },
+                ],
+                name: '数量',
+                type: 'pie',
+                radius:['20%','60%'],
+                emphasis: {
+                  disabled:false, 
+                  scale:true,
+                  itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                  }
+                },
+                label:{
+                  show:true
+                }
+              }
+            ]
+          }
+          myEcharts.setOption(option)
+      
