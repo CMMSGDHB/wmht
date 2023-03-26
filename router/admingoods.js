@@ -9,13 +9,13 @@ const co = require('co')
 const OSS = require('ali-oss')
 const client = new OSS({
 	region: "oss-cn-chengdu",
-	accessKeyId: "LTAI5tJt5zEp7Htv89tmWJEQ",
-	accessKeySecret: "vH0jirxjMNdmcg6q8WiUrNjx4DSRVi",
-	bucket: "wmht"
+	accessKeyId: "xxxxxx",
+	accessKeySecret: "xxxxxx",
+	bucket: "xxxxxx"
 })
 
 const ali_oss = {
-	bucket: "wmht",
+	bucket: "xxxxxx",
 	endPoint: "oss-cn-chengdu.aliyuncs.com"
 }
 
