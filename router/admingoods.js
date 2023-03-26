@@ -8,7 +8,7 @@ const formidable = require('formidable')
 const co = require('co')
 const OSS = require('ali-oss')
 const client = new OSS({
-	region: "oss-cn-chengdu",
+	region: "xxxxxxxxxx",
 	accessKeyId: "xxxxxx",
 	accessKeySecret: "xxxxxx",
 	bucket: "xxxxxx"
@@ -16,7 +16,7 @@ const client = new OSS({
 
 const ali_oss = {
 	bucket: "xxxxxx",
-	endPoint: "oss-cn-chengdu.aliyuncs.com"
+	endPoint: "xxxxxxxxxx"
 }
 
 
